@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>eventDefault</title>
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/child_style.css">
+    <!--[if lt IE 9]>
+    <style>
+        code{overflow: auto}
+    </style>
+    <![endif]-->
+</head>
+<body>
+<div id="wrap">
+    <div class="explain">
+        <h1 class="tit">논블로킹 I/O</h1>
+        <dl>
+            <dt class="d_tit">논블로킹 I/O</dt>
+            <dd class="d_txt">
+                이벤트 루프를 잘 활용하면 오래 걸리는 작업을 효율적으로 처리할 수 있습니다. <br>
+                오래 걸리는 함수를 백그라운드로 보내서 다음 코드가 먼저 실행되게 하고, <br>
+                그 함수가 다시 태스크 큐를 거쳐 호출 스택으로 올라오기를 기다리는 방식입니다. <br>
+                이 방식이 논블로킹 방식입니다. <br>
+                논블로킹이란 이전 작업이 완료될 때까지 멈추지 않고 다음 작업을 수행함을 뜻합니다.
+                <span class="img_wrap"><img src="img/img09.jpg" alt=""></span>
+                그림 1-9를 보면 블로킹보다 논블로킹 방식이 같은 작업을 더 짧은 시간 동안 처리할 수 있음을 알 수 있습니다. <br>
+                하지만 싱글 스레드라는 한계 때문에 자바스크립트의 모든 코드가 이 방식으로 시간적 이득을 볼 수 있는 것은 아닙니다. <br>
+                <span class="em">현재 노드 프로세스 외의 다른 컴퓨팅 자원을 사용할 수 있는 I/O 작업이 주로 시간적 이득을 많이 봅니다.</span>
+                
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<script src="js/prism.js"></script>
+<script src="js/tab.js"></script>
+</body>
+</html>
