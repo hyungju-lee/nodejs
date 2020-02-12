@@ -61,13 +61,26 @@ button {
     word-break: break-all;
 }
 
+.explain dl dl .d_tit {
+    padding: 2em 0;
+    font-size: 1.25em;
+}
+
 .explain .d_txt, .fullscreenDivHolder .d_txt {
     padding: 0 0 0 1.25em;
     font-size: 1em;
 }
 
+.explain dl dl .d_txt {
+    padding: 0 0 0 1.25em;
+}
+
 .explain .lst, .fullscreenDivHolder .lst {
-    padding: 0.625em 0;
+    padding: 0.625em 0 0.625em 1em;
+}
+
+.explain .lst li {
+    margin: 0.625em 0;
 }
 
 .explain .item, .fullscreenDivHolder .item {
