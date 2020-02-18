@@ -18,6 +18,7 @@ a:hover{color:#333;text-decoration: underline}
 .em.type3{color: #ca51ef}
 
 .tooltip{font-size: 12px;color: #222}
+.phrase{padding:10px;font-size: 13px;color: #222}
 
 .flexbox{display:-webkit-box;display:-moz-box;display:-webkit-flex;display:-ms-flexbox;display:flex}
 .flexbox-left{display:inline-block;-webkit-box:0;-moz-box:0;-webkit-flex:0 0 auto;-ms-flex:0 0 auto;flex:0 0 auto}
