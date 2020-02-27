@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>eventDefault</title>
+    <link rel="stylesheet" href="css/touchnswipe.min.css">
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/child_style.css">
+    <!--[if lt IE 9]>
+    <style>
+        code{overflow: auto}
+    </style>
+    <![endif]-->
+</head>
+<body>
+<div id="wrap">
+    <div class="explain">
+        <h1 class="tit">async / await</h1>
+        <dl>
+            <dt class="d_tit">async / await</dt>
+            <dd class="d_txt">
+                <span class="em">노드 7.6 버전부터 지원되는 기능입니다.</span> <br>
+                자바스크립트 스펙은 ES2017 입니다. <br>
+                최신 기능이면서 정말 혁신적인 기능입니다. <br>
+                특히 노드처럼 비동기 프로그래밍을 해야 할 때 도움이 많이 됩니다. <br>
+                <span class="em">프로미스가 콜백 지옥을 해결했다지만, 여전히 코드가 장황합니다.</span> <br>
+                async / await 문법은 프로미스를 사용한 코드를 한 번 더 깔끔하게 줄여줍니다. <br>
+                <br>
+                2.1.6 절의 프로미스 코드를 다시 한 번 보겠습니다.
+                <pre class="line-numbers">
+                    <code class="language-javascript">
+                        function findAndSaveUser(Users) {
+                            Users.findOne({})
+                                .then((user) =&gt; {
+                                    user.name = 'zero';
+                                    return user.save();
+                                })
+                                .then((user) =&gt; {
+                                    return Users.findOne({ gender: 'm' })
+                                })
+                                .then((user) =&gt; {
+                                    // 생략
+                                })
+                                .catch(err =&gt; {
+                                    console.error(err);
+                                })
+                        }
+                    </code>
+                </pre>
+                콜백과 다르게 코드의 깊이가 깊진 않지만, 코드 길이는 여전히 깁니다. <br>
+                async / await 문법을 사용하면 다음과 같이 바꿀 수 있습니다. <br>
+                async function 이라는 것이 추가되었습니다.
+                <pre class="line-numbers">
+                    <code class="language-javascript">
+                        async function findAndSaveUser(Users) {
+                            let user = await Users.findOne({});
+                            user.name = 'zero';
+                            user = await user.save();
+                            user = await Users.findOne({ gender: 'm' });
+                            // 생략
+                        }
+                    </code>
+                </pre>
+                놀라울 정도로 코드가 짧아졌습니다. <br>
+                함수 선언부를 일반 함수 대신 async function으로 교체한 후, 프로미스 앞에 await을 붙여주었습니다. <br>
+                이제 함수는 해당 프로미스가 resolve될 때까지 기다린 뒤 다음 로직으로 넘어갑니다. <br>
+                예를 들면 await Users.findOne({})이 resolve될 때까지 기다린 뒤, user 변수를 초기화하는 것입니다. <br>
+                <br>
+                위 코드는 에러를 처리하는 부분이 없으므로 다음과 같은 추가 작업이 필요합니다.
+                <pre class="line-numbers">
+                    <code class="language-javascript">
+                        async function findAndSaveUser(Users) {
+                            try {
+                                let user = await Users.findOne({});
+                                user.name = 'zero';
+                                user = await user.save();
+                                user = await Users.findOne({ gender: 'm' });
+                                // 생략
+                            } catch (error) {
+                                console.error(error);
+                            }
+                        }
+                    </code>
+                </pre>
+                try/catch 문으로 로직을 감쌌습니다. <br>
+                프로미스의 catch 메서드처럼 try/catch문의 catch가 에러를 처리합니다. <br>
+                <br>
+                화살표 함수도 async와 같이 사용할 수 있습니다.
+                <pre class="line-numbers">
+                    <code class="language-javascript">
+                        const findAndSaveUser = async (Users) =&gt; {
+                            try {
+                                let user = await Users.findOne({});
+                                user.name = 'zero';
+                                user = await user.save();
+                                user = await Users.findOne({ gender: 'm' });
+                                // 생략
+                            } catch (error) {
+                                console.error(error);
+                            }
+                        };
+                    </code>
+                </pre>
+                for문과 async/await을 같이 써서 Promise.all을 대체할 수도 있습니다. <br>
+                <span class="em">이것은 노드 10 버전부터 지원하는 ES2018 문법입니다.</span>
+                <pre class="line-numbers">
+                    <code class="language-javascript">
+                        const promise1 = Promise.resolve('성공1');
+                        const promise2 = Promise.resolve('성공2');
+                        (async () =&gt; {
+                            for await (promise of [promise1, promise2]) {
+                                console.log(promise);
+                            }
+                        })();
+                    </code>
+                </pre>
+                Promise.all 대신 for await of 문을 사용하여 프로미스를 반복하는 모습입니다. <br>
+                <br>
+                앞으로 중첩되는 콜백 함수가 있다면 <strong>프로미스를 거쳐 async / await 문법으로 바꾸는 연습을 해보기 바랍니다.</strong> <br>
+                코드가 훨씬 간결해질 것입니다. <br>
+                이 책의 예제는 async / await 문법을 적극적으로 사용하므로 익숙해지는 것이 중요합니다. <br>
+                <br>
+                이외에도 많은 문법이 추가되었습니다. <br>
+                하지만 이 책에서는 위에서 설명한 내용 정도만 자주 사용합니다. <br>
+                다른 변경 사항이 궁금한 분들을 위해 이 장 끝부분에 새로운 문법을 배울 수 있는 사이트의 링크를 적어놓았습니다. <br>
+                <br>
+                이제 프론트엔드에서 사용되는 자바스크립트 코드를 알아보겠습니다.
+
+
+
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="js/hammer.min.js"></script>
+<script src="js/TweenMax.min.js"></script>
+<script src="js/jquery.touchnswipe.min.js"></script>
+<script src="js/prism.js"></script>
+<script src="js/tab.js"></script>
+</body>
+</html>
