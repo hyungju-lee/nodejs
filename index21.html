@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>eventDefault</title>
+    <link rel="stylesheet" href="css/touchnswipe.min.css">
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/child_style.css">
+    <!--[if lt IE 9]>
+    <style>
+        code{overflow: auto}
+    </style>
+    <![endif]-->
+</head>
+<body>
+<div id="wrap">
+    <div class="explain">
+        <h1 class="tit">FormData</h1>
+        <dl>
+            <dt class="d_tit">FormData</dt>
+            <dd class="d_txt">
+                HTML form 태그의 데이터를 동적으로 제어할 수 있는 기능입니다. <br>
+                주로 AJAX와 함께 사용됩니다.
+                <pre class="line-numbers">
+                    <code class="language-javascript">
+                        &lt;script&gt;
+                            var formData = new FormData();
+                            formData.append('name', 'zerocho');
+                            formData.append('item', 'orange');
+                            formData.append('item', 'melon');
+                            formData.has('item'); // true
+                            formData.has('money'); // false
+                            formData.get('item'); // orange
+                            formData.getAll('item'); // ['orange', 'melon']
+                            formData.append('test', ['hi', 'zero']);
+                            formData.get('test'); // hi, zero
+                            formData.delete('test');
+                            formData.get('test'); // null
+                            formData.set('item', 'apple');
+                            formData.getAll('item'); // ['apple']
+                        &lt;/script&gt;
+                    </code>
+                </pre>
+                먼저 FormData 생성자로 formData 객체를 만듭니다. <br>
+                생성된 객체의 append 메서드로 <strong>키-값</strong> 형식의 데이터를 저장할 수 있습니다. <br>
+                append 메서드를 여러 번 사용해서 키 하나에 여러 개의 값을 추가해도 됩니다. <br>
+                has 메서드는 주어진 키에 해당하는 값이 있는지 여부를 알려줍니다. <br>
+                get 메서드는 주어진 키에 해당하는 값 하나를 가져오고, getAll 메서드는 해당하는 모든 값을 가져옵니다. <br>
+                delete는 현재 키를 제거하는 메서드고, set은 현재 키를 수정하는 메서드입니다. <br>
+                <br>
+                이제 AJAX로 폼 데이터를 서버에 보내면 됩니다.
+                <pre class="line-numbers">
+                    <code class="language-javascript">
+                        &lt;script&gt;
+                            var xhr = new XMLHttpRequest();
+                            var formData = new FormData();
+                            formData.append('name', 'zerocho');
+                            formData.append('birth', 1994);
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === xhr.DONE) {
+                                    if (xhr.status === 200 || xhr.status === 201) {
+                                        console.log(xhr.responseText);
+                                    } else {
+                                        console.error(xhr.responseText);
+                                    }
+                                }
+                            };
+                            xhr.open('POST', 'https://www.zerocho.com/api/post/formdata');
+                            xhr.send(formData); // 폼 데이터 객체 전송
+                        &lt;/script&gt;
+                    </code>
+                </pre>
+                send 메서드에 데이터를 넣어 보냅니다. <br>
+                현재 설정된 주소는 실제로 동작하는 주소라서 결과값을 받을 수 있습니다.
+
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="js/hammer.min.js"></script>
+<script src="js/TweenMax.min.js"></script>
+<script src="js/jquery.touchnswipe.min.js"></script>
+<script src="js/prism.js"></script>
+<script src="js/tab.js"></script>
+</body>
+</html>
