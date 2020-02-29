@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>eventDefault</title>
+    <link rel="stylesheet" href="css/touchnswipe.min.css">
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/child_style.css">
+    <!--[if lt IE 9]>
+    <style>
+        code{overflow: auto}
+    </style>
+    <![endif]-->
+</head>
+<body>
+<div id="wrap">
+    <div class="explain">
+        <h1 class="tit">JS 파일 실행하기</h1>
+        <dl>
+            <dt class="d_tit">JS 파일 실행하기</dt>
+            <dd class="d_txt">
+                REPL에 직접 코드를 입력하는 대신 자바스크립트 파일을 만들어 실행해보겠습니다. <br>
+                다음과 같은 자바스크립트 파일을 만들어봅시다. <br>
+                파일은 아무 폴더(디렉터리) 안에 만들어도 됩니다. <br>
+                하지만 예제 코드가 많으니 따로 폴더를 만들어 파일들을 모아두는 것이 편리할 것입니다.
+                <pre class="line-numbers">
+                    <code class="language-js">
+                        // helloWorld.js 파일
+
+                        function helloWorld() {
+                            console.log('Hello World');
+                            helloNode();
+                        }
+                        function helloNode() {
+                            console.log('Hello Node');
+                        }
+                        helloWorld();
+                    </code>
+                </pre>
+                콘솔에서 <strong>node [자바스크립트 파일 경로]</strong>로 실행합니다. <br>
+                확장자(.js)는 생략해도 됩니다. <br>
+                <strong>REPL에서 입력하는 것이 아니므로 주의하세요. <br>
+                REPL이 아니라 콘솔에서 입력해야합니다.</strong> <br>
+                콘솔에서 REPL로 들어가는 명령어가 <span class="em">node</span>고, 노드를 통해 파일을 실행하는 명령어는
+                <span class="em">node [자바스크립트 파일 경로]</span>입니다.
+                <span class="img_wrap"><img src="img/img38.jpg" alt=""></span>
+                <pre class="line-numbers">
+                    <code class="language-powershell">
+                        node helloWorld
+                        Hello World
+                        Hello Node
+                    </code>
+                </pre>
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="js/hammer.min.js"></script>
+<script src="js/TweenMax.min.js"></script>
+<script src="js/jquery.touchnswipe.min.js"></script>
+<script src="js/prism.js"></script>
+<script src="js/tab.js"></script>
+</body>
+</html>
