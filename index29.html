@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>eventDefault</title>
+    <link rel="stylesheet" href="css/touchnswipe.min.css">
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/child_style.css">
+    <!--[if lt IE 9]>
+    <style>
+        code{overflow: auto}
+    </style>
+    <![endif]-->
+</head>
+<body>
+<div id="wrap">
+    <div class="explain">
+        <h1 class="tit">타이머</h1>
+        <dl>
+            <dt class="d_tit">타이머</dt>
+            <dd class="d_txt">
+                타이머 기능을 제공하는 함수인 <span class="em">setTimeout, setInterval, setImmediate</span>는 노드에서 window 대신 global 객체 안에 들어있습니다.
+                <br>
+                setTimeout과 setInterval은 웹브라우저에서도 자주 사용되므로 익숙할 겁니다.
+                <ul class="lst">
+                    <li>
+                        <strong>setTimeout(콜백 함수, 밀리초) : </strong><br>
+                        주어진 밀리초(1000분의 1초) 이후에 콜백함수를 실행합니다.
+                    </li>
+                    <li>
+                        <strong>setInterval(콜백 함수, 밀리초) : </strong> <br>
+                        주어진 밀리초마다 콜백 함수를 반복 실행합니다.
+                    </li>
+                    <li>
+                        <strong>setImmediate(콜백 함수) : </strong><br>
+                        콜백함수를 즉시 실행합니다.
+                    </li>
+                </ul>
+                이 타이머 함수들은 모두 아이디를 반환합니다. <br>
+                아이디를 사용하여 타이머를 취소할 수 있습니다.
+                <ul class="lst">
+                    <li>
+                        <strong>clearTimeout(아이디) : </strong> <br>
+                        setTimeout을 취소합니다.
+                    </li>
+                    <li>
+                        <strong>clearInterval(아이디) : </strong> <br>
+                        setInterval을 취소합니다.
+                    </li>
+                    <li>
+                        <strong>clearImmediate(아이디) : </strong><br>
+                        setImmediate를 취소합니다.
+                    </li>
+                </ul>
+                다음은 위 메서드들을 사용한 코드입니다. <br>
+                코드의 실행 순서를 예측해보세요. <br>
+                헷갈리도록 코드 순서를 섞어 놓았습니다.
+                <pre class="line-numbers">
+                    <code class="language-js">
+                        // timer.js 파일
+
+                        const timeout = setTimeout(() => {
+                            console.log('1.5초 후 실행');
+                        }, 1500);
+
+                        const interval = setInterval(() => {
+                           console.log('1초마다 실행');
+                        }, 1000);
+
+                        const timeout2 = setTimeout(() => {
+                            console.log('실행되지 않습니다.');
+                        }, 3000);
+
+                        setTimeout(() => {
+                            clearTimeout(timeout2);
+                            clearInterval(interval);
+                        }, 2500);
+
+                        const immediate = setImmediate(() => {
+                           console.log('즉시 실행');
+                        });
+
+                        const immediate2 = setImmediate(() => {
+                            console.log('실행되지 않습니다.');
+                        });
+
+                        clearImmediate(immediate2);
+                    </code>
+                </pre>
+                <div class="pinch">
+                    <div class="slider" data-elem="touchnswipe" data-options="appendControls:false; appendControlHolder:false">
+                        <div class="slideHolder" data-elem="slides" data-options="loop:false; slideOptions:{ fullscreenAdjustHeight:0; doubleTapZoom:3; maxZoom:10; }">
+                            <div data-elem="slide" data-options="thumb:img/img47.jpg">
+                                <img data-src="img/img47.jpg" data-elem="bg"/>
+                            </div>
+                            <div data-elem="slide" data-options="thumb:img/img48.jpg">
+                                <img data-src="img/img48.jpg" data-elem="bg"/>
+                            </div>
+                        </div>
+                        <div data-elem="thumbs" class="thumbs" style="bottom:0px"></div>
+                        <div data-elem="fullscreenToggle" data-options="onCss:{className:fullscreenToggle on}; offCss:{className:fullscreenToggle off}" class="fullscreenToggle" style="background-color:rgba(255,255,255, 0.6); border:1px solid #999; left:auto; right:10px; top:10px"></div>
+                    </div>
+                </div>
+                먼저 실행되는 것은 immediate입니다. (웹브라우저에선 setImmediate 함수를 지원하지 않습니다.) <br>
+                immediate2는 바로 clearImmediate를 사용해서 취소했기 때문에 실행되지 않습니다. <br>
+                코드 실행 1초 후에는 interval의 콜백이 실행됩니다. <br>
+                코드 실행 1.5초 후에는 timeout의 콜백이 실행될 것입니다. <br>
+                interval의 콜백은 1초마다 실행되므로 코드 실행 후 2초가 지났을 때도 콜백이 실행됩니다. <br>
+                2.5초가 지났을 때 clearTimeout과 clearInterval이 각각 timeout2와 interval을 취소합니다. <br>
+                따라서 코드 실행 3초 후에는 로그가 아무것도 남지 않습니다.
+                <span class="img_wrap"><img src="img/img49.jpg" alt=""></span>
+                <p class="e_comment">
+                    # NOTE : <strong>setImmediate(콜백)과 setTimeout(콜백, 0)</strong><br>
+                    setImmediate(콜백)과 setTimeout(콜백, 0)에 담긴 콜백 함수는 이벤트 루프를 거친 뒤 즉시 실행됩니다. <br>
+                    <strong>둘의 차이점은 무엇일까요?</strong> <br>
+                    <span class="em">특수한 경우에 setImmediate는 setTimeout(콜백, 0)보다 먼저 실행됩니다. <br>
+                    파일 시스템 접근, 네트워킹 같은 I/O 작업의 콜백 함수 안에서 타이머를 호출하는 경우입니다.</span> <br>
+                    하지만 setImmediate가 항상 setTimeout(콜백, 0)보다 먼저 호출되는 것은 아니라는 사실만 알아두세요. <br>
+                    헷갈리지 않도록 setTimeout(콜백, 0)은 사용하지 않는 것을 권장합니다.
+                </p>
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="js/hammer.min.js"></script>
+<script src="js/TweenMax.min.js"></script>
+<script src="js/jquery.touchnswipe.min.js"></script>
+<script src="js/prism.js"></script>
+<script src="js/tab.js"></script>
+</body>
+</html>
