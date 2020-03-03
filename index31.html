@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>eventDefault</title>
+    <link rel="stylesheet" href="css/touchnswipe.min.css">
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/child_style.css">
+    <!--[if lt IE 9]>
+    <style>
+        code{overflow: auto}
+    </style>
+    <![endif]-->
+</head>
+<body>
+<div id="wrap">
+    <div class="explain">
+        <h1 class="tit">module, exports</h1>
+        <dl>
+            <dt class="d_tit">module, exports</dt>
+            <dd class="d_txt">
+                <strong>지금까지는 모듈을 만들 때 module.exports만 사용했는데, module 객체 말고 exports 객체로도 모듈을 만들 수 있습니다.</strong> <br>
+                3.3절의 var.js를 다음과 같이 수정해도 index.js에서는 동일하게 불러올 수 있습니다.
+                <pre class="line-numbers">
+                    <code class="language-js">
+                        // var.js 파일
+
+                        const odd = '홀수입니다.';
+                        const even = '짝수입니다.';
+
+                        module.exports = {
+                            odd,
+                            even,
+                        };
+                    </code>
+                </pre>
+                위 파일을 아래 소스로 수정합니다.
+                <pre class="line-numbers">
+                    <code class="language-js">
+                        // var.js 파일
+
+                        exports.odd = '홀수입니다.';
+                        exports.even = '짝수입니다.';
+                    </code>
+                </pre>
+                <span class="img_wrap"><img src="img/img51.jpg" alt=""></span>
+                module.exports로 한 번에 대입하는 대신, 각각의 변수를 exports 객체에 하나씩 넣었습니다. <br>
+                동일하게 동작하는 이유는 module.exports와 exports가 같은 객체를 참조하기 때문입니다. <br>
+                실제로 <span class="em">console.log(module.exports === exports)</span>를 하면 true가 나옵니다. <br>
+                따라서 exports 객체에 add 함수를 넣으면 module.exports에도 add 함수가 들어갑니다.
+                <span class="img_wrap"><img src="img/img52.jpg" alt=""></span>
+                <p class="e_comment">
+                    # Warning : <strong>exports 객체 사용 시</strong> <br>
+                    <span class="em">exports 객체 사용 시에는 module.exports와의 참조 관계가 깨지지 않도록 주의해야 합니다.</span> <br>
+                    module.exports에는 어떤 값이든 대입해도 되지만, exports에는 반드시 객체처럼 속성명과 속성값을 대입해야 합니다. <br>
+                    exports에 다른 값을 대입하면 객체의 참조 관계가 끊겨 더 이상 모듈로 기능하지 않습니다. <br>
+                    <br>
+                    exports를 사용할 때는 객체만 사용할 수 있으므로 func.js와 같이 module.exports에 함수를 대입한 경우에는 exports로 바꿀 수 없습니다. <br>
+                    <br>
+                    exports와 module.exports에는 참조 관계가 있으므로 한 모듈에 exports 객체와 module.exports를 동시에 사용하지 않는 것이 좋습니다.
+                </p>
+                <pre class="line-numbers">
+                    <code class="language-js">
+                        // func.js 파일
+
+                        const { odd, even } = require('./var');
+
+                        function checkOddOrEven(num) {
+                            if (num % 2) { // 홀수면
+                                return odd;
+                            }
+                            return even;
+                        }
+
+                        module.exports = checkOddOrEven;
+                    </code>
+                </pre>
+            </dd>
+            <dt class="d_tit">exports 객체에 함수를 대입하면 어떻게될까?</dt>
+            <dd class="d_txt">
+                테스트해봤는데, 오류가 생길 확률이 증가하는 거 같습니다. <br>
+                return과 콜백 등등 얽히고 섥혀서 복잡해질 수 있을 거 같습니다.
+
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="js/hammer.min.js"></script>
+<script src="js/TweenMax.min.js"></script>
+<script src="js/jquery.touchnswipe.min.js"></script>
+<script src="js/prism.js"></script>
+<script src="js/tab.js"></script>
+</body>
+</html>
