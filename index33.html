@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>eventDefault</title>
+    <link rel="stylesheet" href="css/touchnswipe.min.css">
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="css/tab.css">
+    <link rel="stylesheet" href="css/child_style.css">
+    <!--[if lt IE 9]>
+    <style>
+        code{overflow: auto}
+    </style>
+    <![endif]-->
+</head>
+<body>
+<div id="wrap">
+    <div class="explain">
+        <h1 class="tit">process.env</h1>
+        <dl>
+            <dt class="d_tit">process.env</dt>
+            <dd class="d_txt">
+                <span class="img_wrap"><img src="img/img54.jpg" alt=""></span>
+                REPL에 process.env를 입력하면 매우 많은 정보가 출력됩니다. <br>
+                <strong>자세히 보면 이 정보들이 시스템의 환경 변수임을 알 수 있습니다.</strong> <br>
+                <br>
+                process.env는 서비스의 중요한 키를 저장하는 공간으로도 사용됩니다. <br>
+                서버나 데이터베이스의 비밀번호와 각종 API 키를 코드에 직접 입력하는 것은 위험합니다. <br>
+                혹여 서비스가 해킹당해 코드가 유출되었을 때 비밀번호가 코드에 남아 있어 추가 피해가 발생할 수 있습니다. <br>
+                <br>
+                따라서 중요한 비밀번호는 다음과 같이 process.env 의 속성으로 대체합니다.
+                <pre class="line-numbers">
+                    <code class="language-js">
+                        const secretId = process.env.SECRET_ID;
+                        const secretCode = process.env.SECRET_CODE;
+                    </code>
+                </pre>
+                이제 process.env에 직접 SECRET_ID와 SECRET_CODE를 넣어주면 됩니다. <br>
+                넣는 방법은 운영체제마다 차이가 있습니다. <br>
+                하지만 한 번에 모든 운영체제에 동일하게 넣을 수 있는 방법이 있습니다. <br>
+                9장에서 dotenv를 사용할 때 배웁니다.
+
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="js/hammer.min.js"></script>
+<script src="js/TweenMax.min.js"></script>
+<script src="js/jquery.touchnswipe.min.js"></script>
+<script src="js/prism.js"></script>
+<script src="js/tab.js"></script>
+</body>
+</html>
